@@ -943,4 +943,569 @@
                                placeholder="Enter numbers separated by commas...">
                     </div>
                     <div class="preset-buttons">
-                        <button class="preset-btn active" data-seq="
+                        <button class="preset-btn active" data-seq="1, 2, -1, 3, 10, -10">Test 1</button>
+                        <button class="preset-btn" data-seq="0, 8, 10, -2, -4, -1, -5, -3">Test 2</button>
+                        <button class="preset-btn" data-seq="9, 9, -10, 1">Test 3</button>
+                        <button class="preset-btn" data-seq="7, 1, -5, -3, -8, 1">Test 4</button>
+                        <button class="preset-btn" data-seq="-3, 6, -1, 4, -4, -6">Test 5</button>
+                        <button class="preset-btn" data-seq="-1, -2, 3, 5, 6, -2, -1, 4, -4, 2, -1">Test 6</button>
+                    </div>
+                </div>
+
+                <div class="speed-control">
+                    <span class="speed-label">Speed</span>
+                    <input type="range" class="speed-slider" id="speedSlider" min="100" max="2000" value="800">
+                    <span class="speed-value" id="speedValue">800ms</span>
+                </div>
+
+                <button class="action-btn" id="runBtn" style="margin-top: 20px;">
+                    Run Algorithm
+                </button>
+
+                <div class="viz-container" id="vizContainer">
+                    <div class="viz-title">Array Visualization</div>
+                    <div class="array-visualization" id="arrayViz"></div>
+
+                    <div class="step-visualization" id="stepViz" style="display: none;">
+                        <div class="step-header">
+                            <span class="step-number" id="stepNumber">Step 0</span>
+                        </div>
+                        <div class="step-progress">
+                            <div class="step-progress-bar" id="progressBar" style="width: 0%"></div>
+                        </div>
+                        <div class="state-grid">
+                            <div class="state-item">
+                                <div class="label">Current Sum</div>
+                                <div class="value" id="currentSum">0</div>
+                            </div>
+                            <div class="state-item">
+                                <div class="label">Max Sum</div>
+                                <div class="value highlight" id="maxSum">0</div>
+                            </div>
+                            <div class="state-item">
+                                <div class="label">Window Start</div>
+                                <div class="value" id="windowStart">0</div>
+                            </div>
+                            <div class="state-item">
+                                <div class="label">Window End</div>
+                                <div class="value" id="windowEnd">—</div>
+                            </div>
+                            <div class="state-item">
+                                <div class="label">Current Index</div>
+                                <div class="value" id="currentIndex">—</div>
+                            </div>
+                            <div class="state-item">
+                                <div class="label">Element</div>
+                                <div class="value" id="currentElement">—</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="result-section" id="resultSection">
+                        <div class="result-label">Maximum Subsequence Found</div>
+                        <div class="result-sequence" id="resultSequence"></div>
+                        <div class="result-stats">
+                            <div class="result-stat">
+                                <span class="stat-label">Sum:</span>
+                                <span class="stat-value" id="resultSum">0</span>
+                            </div>
+                            <div class="result-stat">
+                                <span class="stat-label">Length:</span>
+                                <span class="stat-value" id="resultLength">0</span>
+                            </div>
+                            <div class="result-stat">
+                                <span class="stat-label">Indices:</span>
+                                <span class="stat-value" id="resultIndices">0 → 0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📐</div>
+                    <div>
+                        <div class="card-title">How It Works</div>
+                        <div class="card-subtitle">Kadane's algorithm breakdown</div>
+                    </div>
+                </div>
+                <div class="algo-steps">
+                    <div class="algo-step">
+                        <div class="algo-step-number">1</div>
+                        <div class="algo-step-content">
+                            <h4>Initialize</h4>
+                            <p>Set maxSum and currentSum to 0. Track window boundaries with maxStart, maxEnd, and currentStart.</p>
+                        </div>
+                    </div>
+                    <div class="algo-step">
+                        <div class="algo-step-number">2</div>
+                        <div class="algo-step-content">
+                            <h4>Iterate</h4>
+                            <p>Scan each element left to right. Add the current element to running currentSum.</p>
+                        </div>
+                    </div>
+                    <div class="algo-step">
+                        <div class="algo-step-number">3</div>
+                        <div class="algo-step-content">
+                            <h4>Update Maximum</h4>
+                            <p>If currentSum exceeds maxSum, update maxSum and record the window boundaries [maxStart, maxEnd].</p>
+                        </div>
+                    </div>
+                    <div class="algo-step">
+                        <div class="algo-step-number">4</div>
+                        <div class="algo-step-content">
+                            <h4>Reset on Negative</h4>
+                            <p>If currentSum drops below zero, reset it to 0 and move currentStart to the next index. Any extension would only decrease the total.</p>
+                        </div>
+                    </div>
+                    <div class="algo-step">
+                        <div class="algo-step-number">5</div>
+                        <div class="algo-step-content">
+                            <h4>Return Result</h4>
+                            <p>Extract the subsequence from arr[maxStart:maxEnd]. If all elements are negative, returns empty array (sum 0).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">💻</div>
+                    <div>
+                        <div class="card-title">Implementation</div>
+                        <div class="card-subtitle">JavaScript / TypeScript / Python</div>
+                    </div>
+                </div>
+                <div class="tabs">
+                    <button class="tab active" data-tab="js">JavaScript</button>
+                    <button class="tab" data-tab="ts">TypeScript</button>
+                    <button class="tab" data-tab="py">Python</button>
+                </div>
+                <div class="code-panel">
+                    <div class="tab-content active" id="tab-js">
+                        <div class="code-block">
+<span class="keyword">function</span> <span class="function">maximumSubsequence</span>(arr) {
+    <span class="keyword">if</span> (!arr || arr.length === <span class="number">0</span>) <span class="keyword">return</span> [];
+    <span class="keyword">let</span> maxSum = <span class="number">0</span>, currentSum = <span class="number">0</span>;
+    <span class="keyword">let</span> maxStart = <span class="number">0</span>, maxEnd = <span class="number">0</span>, currentStart = <span class="number">0</span>;
+    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i < arr.length; i++) {
+        currentSum += arr[i];
+        <span class="keyword">if</span> (currentSum > maxSum) {
+            maxSum = currentSum;
+            maxStart = currentStart;
+            maxEnd = i + <span class="number">1</span>;
+        }
+        <span class="keyword">if</span> (currentSum < <span class="number">0</span>) {
+            currentSum = <span class="number">0</span>;
+            currentStart = i + <span class="number">1</span>;
+        }
+    }
+    <span class="keyword">return</span> arr.slice(maxStart, maxEnd);
+}
+                        </div>
+                    </div>
+                    <div class="tab-content" id="tab-ts">
+                        <div class="code-block">
+<span class="keyword">function</span> <span class="function">maximumSubsequence</span>(
+    arr: <span class="keyword">readonly</span> <span class="keyword">number</span>[]
+): <span class="keyword">number</span>[] {
+    <span class="keyword">if</span> (!arr || arr.length === <span class="number">0</span>) <span class="keyword">return</span> [];
+    <span class="keyword">let</span> maxSum: <span class="keyword">number</span> = <span class="number">0</span>;
+    <span class="keyword">let</span> currentSum: <span class="keyword">number</span> = <span class="number">0</span>;
+    <span class="keyword">let</span> maxStart: <span class="keyword">number</span> = <span class="number">0</span>;
+    <span class="keyword">let</span> maxEnd: <span class="keyword">number</span> = <span class="number">0</span>;
+    <span class="keyword">let</span> currentStart: <span class="keyword">number</span> = <span class="number">0</span>;
+    <span class="keyword">for</span> (<span class="keyword">let</span> i: <span class="keyword">number</span> = <span class="number">0</span>; i < arr.length; i++) {
+        currentSum += arr[i];
+        <span class="keyword">if</span> (currentSum > maxSum) {
+            maxSum = currentSum;
+            maxStart = currentStart;
+            maxEnd = i + <span class="number">1</span>;
+        }
+        <span class="keyword">if</span> (currentSum < <span class="number">0</span>) {
+            currentSum = <span class="number">0</span>;
+            currentStart = i + <span class="number">1</span>;
+        }
+    }
+    <span class="keyword">return</span> Array.from(arr.slice(maxStart, maxEnd));
+}
+                        </div>
+                    </div>
+                    <div class="tab-content" id="tab-py">
+                        <div class="code-block">
+<span class="keyword">def</span> <span class="function">maximum_subsequence</span>(arr):
+    <span class="keyword">if not</span> arr:
+        <span class="keyword">return</span> []
+    max_sum = <span class="number">0</span>
+    current_sum = <span class="number">0</span>
+    max_start = <span class="number">0</span>
+    max_end = <span class="number">0</span>
+    current_start = <span class="number">0</span>
+    <span class="keyword">for</span> i, num <span class="keyword">in</span> <span class="function">enumerate</span>(arr):
+        current_sum += num
+        <span class="keyword">if</span> current_sum > max_sum:
+            max_sum = current_sum
+            max_start = current_start
+            max_end = i + <span class="number">1</span>
+        <span class="keyword">if</span> current_sum < <span class="number">0</span>:
+            current_sum = <span class="number">0</span>
+            current_start = i + <span class="number">1</span>
+    <span class="keyword">return</span> arr[max_start:max_end]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card full-width">
+            <div class="card-header">
+                <div class="card-icon">✅</div>
+                <div>
+                    <div class="card-title">Test Suite</div>
+                    <div class="card-subtitle">All 6 test cases from the specification</div>
+                </div>
+            </div>
+            <div class="test-cases-grid" id="testCasesGrid"></div>
+        </div>
+
+        <footer class="footer">
+            <p class="footer-text">
+                Maximum Subsequence Sum · Kadane's Algorithm · O(n) Linear Time
+            </p>
+            <div class="footer-links">
+                <a href="#" class="footer-link">Bentley, J. (1984). Programming Pearls</a>
+                <a href="#" class="footer-link">Kadane, J. B. (2023). Two Kadane Algorithms</a>
+                <a href="#" class="footer-link">Gries, D. (1982). A Note on Standard Strategy</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouseX = 0, mouseY = 0;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.3;
+                this.speedY = (Math.random() - 0.5) * 0.3;
+                this.opacity = Math.random() * 0.5 + 0.1;
+                this.gold = Math.random() > 0.7;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                const dx = mouseX - this.x;
+                const dy = mouseY - this.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 150) {
+                    const force = (150 - dist) / 150;
+                    this.x -= dx * force * 0.02;
+                    this.y -= dy * force * 0.02;
+                }
+                if (this.x < 0 || this.x > canvas.width || 
+                    this.y < 0 || this.y > canvas.height) {
+                    this.reset();
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.gold 
+                    ? `rgba(212, 168, 83, ${this.opacity})` 
+                    : `rgba(92, 225, 230, ${this.opacity * 0.5})`;
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 80; i++) {
+            particles.push(new Particle());
+        }
+
+        function drawConnections() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(212, 168, 83, ${0.05 * (1 - dist / 120)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateBg() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            drawConnections();
+            requestAnimationFrame(animateBg);
+        }
+        animateBg();
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function maximumSubsequence(arr) {
+            if (!arr || arr.length === 0) return [];
+            let maxSum = 0;
+            let currentSum = 0;
+            let maxStart = 0;
+            let maxEnd = 0;
+            let currentStart = 0;
+            for (let i = 0; i < arr.length; i++) {
+                currentSum += arr[i];
+                if (currentSum > maxSum) {
+                    maxSum = currentSum;
+                    maxStart = currentStart;
+                    maxEnd = i + 1;
+                }
+                if (currentSum < 0) {
+                    currentSum = 0;
+                    currentStart = i + 1;
+                }
+            }
+            return arr.slice(maxStart, maxEnd);
+        }
+
+        const sequenceInput = document.getElementById('sequenceInput');
+        const runBtn = document.getElementById('runBtn');
+        const arrayViz = document.getElementById('arrayViz');
+        const stepViz = document.getElementById('stepViz');
+        const stepNumber = document.getElementById('stepNumber');
+        const progressBar = document.getElementById('progressBar');
+        const currentSumEl = document.getElementById('currentSum');
+        const maxSumEl = document.getElementById('maxSum');
+        const windowStartEl = document.getElementById('windowStart');
+        const windowEndEl = document.getElementById('windowEnd');
+        const currentIndexEl = document.getElementById('currentIndex');
+        const currentElementEl = document.getElementById('currentElement');
+        const resultSection = document.getElementById('resultSection');
+        const resultSequence = document.getElementById('resultSequence');
+        const resultSum = document.getElementById('resultSum');
+        const resultLength = document.getElementById('resultLength');
+        const resultIndices = document.getElementById('resultIndices');
+        const speedSlider = document.getElementById('speedSlider');
+        const speedValue = document.getElementById('speedValue');
+
+        let isRunning = false;
+        let animationDelay = 800;
+
+        speedSlider.addEventListener('input', (e) => {
+            animationDelay = parseInt(e.target.value);
+            speedValue.textContent = animationDelay + 'ms';
+        });
+
+        function parseInput() {
+            const raw = sequenceInput.value;
+            return raw.split(/[,\\s]+/)
+                .map(s => s.trim())
+                .filter(s => s !== '')
+                .map(s => parseInt(s, 10))
+                .filter(n => !isNaN(n));
+        }
+
+        function renderArray(arr, highlightStart = -1, highlightEnd = -1, scanIndex = -1) {
+            arrayViz.innerHTML = '';
+            arr.forEach((num, i) => {
+                const el = document.createElement('div');
+                el.className = 'array-element';
+                if (i >= highlightStart && i < highlightEnd) {
+                    el.classList.add('in-window');
+                }
+                if (i === scanIndex) {
+                    el.classList.add('current-scan');
+                }
+                el.textContent = num;
+                const idxLabel = document.createElement('span');
+                idxLabel.className = 'index-label';
+                idxLabel.textContent = i;
+                el.appendChild(idxLabel);
+                arrayViz.appendChild(el);
+            });
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        function updateState(currentSum, maxSum, windowStart, windowEnd, currentIdx, element, stepNum, totalSteps) {
+            currentSumEl.textContent = currentSum;
+            maxSumEl.textContent = maxSum;
+            windowStartEl.textContent = windowStart;
+            windowEndEl.textContent = windowEnd === 0 ? '—' : windowEnd - 1;
+            currentIndexEl.textContent = currentIdx;
+            currentElementEl.textContent = element;
+            stepNumber.textContent = `Step ${stepNum} / ${totalSteps}`;
+            progressBar.style.width = `${(stepNum / totalSteps) * 100}%`;
+            [currentSumEl, maxSumEl, windowStartEl, windowEndEl].forEach(el => {
+                el.classList.remove('changed');
+                void el.offsetWidth;
+                el.classList.add('changed');
+            });
+        }
+
+        async function runVisualization() {
+            if (isRunning) return;
+            isRunning = true;
+            runBtn.disabled = true;
+            runBtn.textContent = 'Running...';
+            resultSection.classList.remove('show');
+
+            const arr = parseInput();
+            if (arr.length === 0) {
+                alert('Please enter a valid sequence of numbers');
+                isRunning = false;
+                runBtn.disabled = false;
+                runBtn.textContent = 'Run Algorithm';
+                return;
+            }
+
+            renderArray(arr);
+            stepViz.style.display = 'block';
+
+            let maxSum = 0;
+            let currentSum = 0;
+            let maxStart = 0;
+            let maxEnd = 0;
+            let currentStart = 0;
+            const totalSteps = arr.length;
+
+            for (let i = 0; i < arr.length; i++) {
+                currentSum += arr[i];
+                renderArray(arr, maxStart, maxEnd, i);
+                updateState(currentSum, maxSum, currentStart, maxEnd, i, arr[i], i + 1, totalSteps);
+                await sleep(animationDelay);
+
+                if (currentSum > maxSum) {
+                    maxSum = currentSum;
+                    maxStart = currentStart;
+                    maxEnd = i + 1;
+                    renderArray(arr, maxStart, maxEnd, i);
+                    updateState(currentSum, maxSum, currentStart, maxEnd, i, arr[i], i + 1, totalSteps);
+                    await sleep(animationDelay * 0.7);
+                }
+
+                if (currentSum < 0) {
+                    currentSum = 0;
+                    currentStart = i + 1;
+                    renderArray(arr, maxStart, maxEnd, i);
+                    updateState(currentSum, maxSum, currentStart, maxEnd, i, arr[i], i + 1, totalSteps);
+                    await sleep(animationDelay * 0.7);
+                }
+            }
+
+            renderArray(arr, maxStart, maxEnd, -1);
+            const result = arr.slice(maxStart, maxEnd);
+            
+            resultSequence.innerHTML = '';
+            result.forEach((num, i) => {
+                const el = document.createElement('div');
+                el.className = 'result-element';
+                el.textContent = num;
+                el.style.animationDelay = `${i * 0.05}s`;
+                resultSequence.appendChild(el);
+            });
+
+            resultSum.textContent = result.reduce((a, b) => a + b, 0);
+            resultLength.textContent = result.length;
+            resultIndices.textContent = result.length > 0 
+                ? `${maxStart} → ${maxEnd - 1}` 
+                : 'empty';
+            
+            resultSection.classList.add('show');
+            stepNumber.textContent = 'Complete';
+            progressBar.style.width = '100%';
+
+            isRunning = false;
+            runBtn.disabled = false;
+            runBtn.textContent = 'Run Algorithm';
+        }
+
+        runBtn.addEventListener('click', runVisualization);
+
+        document.querySelectorAll('.preset-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                sequenceInput.value = btn.dataset.seq;
+                if (!isRunning) {
+                    resultSection.classList.remove('show');
+                    stepViz.style.display = 'none';
+                    renderArray(parseInput());
+                }
+            });
+        });
+
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(`tab-${tab.dataset.tab}`).classList.add('active');
+            });
+        });
+
+        const testCases = [
+            { id: 1, input: [1, 2, -1, 3, 10, -10], expected: [1, 2, -1, 3, 10] },
+            { id: 2, input: [0, 8, 10, -2, -4, -1, -5, -3], expected: [0, 8, 10] },
+            { id: 3, input: [9, 9, -10, 1], expected: [9, 9] },
+            { id: 4, input: [7, 1, -5, -3, -8, 1], expected: [7, 1] },
+            { id: 5, input: [-3, 6, -1, 4, -4, -6], expected: [6, -1, 4] },
+            { id: 6, input: [-1, -2, 3, 5, 6, -2, -1, 4, -4, 2, -1], expected: [3, 5, 6, -2, -1, 4] },
+        ];
+
+        const testCasesGrid = document.getElementById('testCasesGrid');
+        testCases.forEach(tc => {
+            const result = maximumSubsequence(tc.input);
+            const passed = JSON.stringify(result) === JSON.stringify(tc.expected);
+            const div = document.createElement('div');
+            div.className = 'test-case';
+            div.innerHTML = `
+                <div class="test-case-header">
+                    <span class="test-case-id">Test Case ${tc.id}</span>
+                    <span class="test-case-status ${passed ? 'pass' : 'fail'}">${passed ? 'PASS' : 'FAIL'}</span>
+                </div>
+                <div class="test-case-input">[${tc.input.join(', ')}]</div>
+                <div class="test-case-expected">[${tc.expected.join(', ')}]</div>
+            `;
+            div.addEventListener('click', () => {
+                sequenceInput.value = tc.input.join(', ');
+                document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+                resultSection.classList.remove('show');
+                stepViz.style.display = 'none';
+                renderArray(tc.input);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            testCasesGrid.appendChild(div);
+        });
+
+        renderArray(parseInput());
+    </script>
+</body>
+</html>
